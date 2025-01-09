@@ -11,3 +11,46 @@ export async function fetchAllMovies() {
     console.error("Error!", error);
   }
 }
+
+// fetch data by ID
+// try catch
+// write query
+// call pool.query with query parameter
+// return query
+// error handle
+
+export async function fetchMovieById(id) {
+  try {
+    const query = "SELECT * FROM movies WHERE id=$1";
+    const movie = await pool.query(query);
+    return movie.rows;
+  } catch (error) {
+    console.error(`Failed to fetch movie with id ${id}:`, error.message);
+    throw new Error(`No movie found with id: ${id}`);
+  }
+}
+
+// create a new movie and send to database
+// try catch
+// query = send movie in SQL AKA INSERT
+// call pool.query with query parameter
+// return query
+// error handle
+export async function createNewMovie() {
+  try {
+    const query =
+      "INSERT INTO movies (id, movie_name, release_date, box_office_gross, lead_actor, director) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+    const values = [
+      movie_name,
+      release_date,
+      box_office_gross,
+      lead_actor,
+      director,
+    ];
+    const createdMovie = pool.query(query, values);
+    return createdMovie.rows;
+  } catch (error) {
+    console.error(`Failed to create new movie ${newMovie}:`, error.message);
+    throw new Error(`No movie found with id: ${newMovie}`);
+  }
+}
