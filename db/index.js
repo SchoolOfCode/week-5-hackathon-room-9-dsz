@@ -2,12 +2,12 @@
 import pg from "pg";
 
 // Retrieve the database connection string from environment variables
-const connectionString = process.env.DB_CONNECTION_STRING;
+const connectionString = process.env.DB_URL;
 
 // Check if connection string is defined
 if (!connectionString) {
   throw new Error(
-    "No DB_CONNECTION_STRING defined"
+    "No DB_URL defined"
   );
 }
 
