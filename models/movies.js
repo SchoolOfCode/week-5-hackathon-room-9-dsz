@@ -37,10 +37,16 @@ export async function fetchMovieByID(id) {
 // call pool.query with query parameter
 // return query
 // error handle
-export async function createNewMovie() {
+export async function insertMovie(
+  movie_name,
+  release_date,
+  box_office_gross,
+  lead_actor,
+  director
+) {
   try {
     const query =
-      "INSERT INTO movies (id, movie_name, release_date, box_office_gross, lead_actor, director) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+      "INSERT INTO movies (movie_name, release_date, box_office_gross, lead_actor, director) VALUES ($1, $2, $3, $4, $5) RETURNING *";
     const values = [
       movie_name,
       release_date,
