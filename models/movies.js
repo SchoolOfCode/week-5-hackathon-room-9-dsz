@@ -19,10 +19,11 @@ export async function fetchAllMovies() {
 // return query
 // error handle
 
-export async function fetchMovieById(id) {
+export async function fetchMovieByID(id) {
   try {
     const query = "SELECT * FROM movies WHERE id=$1";
-    const movie = await pool.query(query);
+    const values = [id];
+    const movie = await pool.query(query, values);
     return movie.rows;
   } catch (error) {
     console.error(`Failed to fetch movie with id ${id}:`, error.message);

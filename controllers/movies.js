@@ -1,9 +1,9 @@
 import {
   fetchAllMovies,
-  fetchMovieById,
-  insertMovie,
-  modifyMovieById,
-  removeMovieById,
+  fetchMovieByID,
+  // insertMovie,
+  // modifyMovieById,
+  // removeMovieById,
 } from "../models/movies.js";
 
 // Get all movies
@@ -17,10 +17,10 @@ export async function getMovies(req, res) {
 }
 
 // Get movie by ID
-export async function getMovieById(req, res) {
+export async function getMovieByID(req, res) {
   try {
-    const { id } = req.params;
-    const movie = await fetchMovieById(parseInt(id));
+    const id = req.params.id;
+    const movie = await fetchMovieByID(id);
     if (!movie) {
       return res
         .status(404)
