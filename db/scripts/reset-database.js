@@ -20,10 +20,10 @@ async function resetDatabase() {
     director VARCHAR(255)
     );
     `);
-  } catch (error) { }
 
-  //populate movies table
-  await pool.query(`
+
+    //populate movies table
+    await pool.query(`
     INSERT INTO movies (movie_name, release_date, box_office_gross, lead_actor, director) VALUES
 ('Amores Perros', '2000-05-19', 20940000, 'Gael García Bernal', 'Alejandro González Iñárritu'),
 ('Birdman', '2014-10-17', 103215094, 'Michael Keaton', 'Alejandro González Iñárritu'),
@@ -152,8 +152,11 @@ async function resetDatabase() {
 ('Nosferatu', '1922-03-04', NULL, 'Max Schreck', 'F.W. Murnau');
 `)
 
-  // Create the authors table
-  // Create the books table with a foreign key to the authors table
-  // Seed the authors table
-  // Seed the books table
+    // Create the authors table
+    // Create the books table with a foreign key to the authors table
+    // Seed the authors table
+    // Seed the books table
+  } catch (error) { console.log("Error Error") }
 }
+
+await resetDatabase();
