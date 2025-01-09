@@ -156,7 +156,8 @@ async function resetDatabase() {
     // Create the books table with a foreign key to the authors table
     // Seed the authors table
     // Seed the books table
+    console.log("reset-database.js did something");
   } catch (error) { console.log("Error Error") }
 }
 
-await resetDatabase();
+const wer = await resetDatabase();
