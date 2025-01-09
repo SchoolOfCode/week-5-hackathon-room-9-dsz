@@ -22,7 +22,6 @@ async function resetDatabase() {
     );
     `);
 
-
     //populate movies table
     await pool.query(`
     INSERT INTO movies (movie_name, release_date, box_office_gross, lead_actor, director) VALUES
@@ -151,17 +150,15 @@ async function resetDatabase() {
 ('Game Night', '2018-02-23', 117000000, 'Jason Bateman', 'John Francis Daley, Jonathan Goldstein'),
 ('Y Tu Mamá También', '2001-06-08', 33000000, 'Gael García Bernal', 'Alfonso Cuarón'),
 ('Nosferatu', '1922-03-04', NULL, 'Max Schreck', 'F.W. Murnau');
-`)
-
-    // Create the authors table
-    // Create the books table with a foreign key to the authors table
-    // Seed the authors table
-    // Seed the books table
-    console.log("reset-database.js did something");
-  } catch (error) { console.log("Error Error") }
+`);
+  } catch (error) {
+    console.log("Error Error");
+  } finally {
+    await pool.end();
+  }
 }
 
-// create reviews table
+/* create reviews table
 
 await pool.query(`
   CREATE TABLE Reviews (
@@ -302,5 +299,6 @@ INSERT INTO Reviews (Name, Score, Review, movies_id) VALUES
 ('Y Tu Mamá También', '92%', 'A provocative and tender coming-of-age road trip story.'),
 ('Nosferatu', '97%', 'A chilling and atmospheric silent horror masterpiece.');
 `);
+*/
 
 const wer = await resetDatabase();
