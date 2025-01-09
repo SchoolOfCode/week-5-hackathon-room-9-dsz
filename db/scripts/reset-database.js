@@ -13,11 +13,12 @@ async function resetDatabase() {
     // Create the movies table
     await pool.query(`
      CREATE TABLE movies (
-    movie_name VARCHAR(255),
-    release_date DATE,
-    box_office_gross NUMERIC,
-    lead_actor VARCHAR(255),
-    director VARCHAR(255)
+      id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+      movie_name VARCHAR(255),
+      release_date DATE,
+      box_office_gross NUMERIC,
+      lead_actor VARCHAR(255),
+      director VARCHAR(255)
     );
     `);
 
