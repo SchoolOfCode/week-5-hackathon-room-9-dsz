@@ -1,3 +1,7 @@
+# Dave's Movies
+
+## RESTful API fetching data (CRUD) from a PostgreSQL database
+
 | HTTP Method | Path       | Request Body (JSON)          | Response Body (JSON)            | Status Code |
 | ------ | ---------- | --------------------- | ----------------- | ----------- |
 | GET    | /movies     |                       | Get all movies     | 200         |
