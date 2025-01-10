@@ -37,16 +37,15 @@ export async function fetchReviewByID(id) {
   // error handle
 export async function insertReview(newReviewData) {
   try {
-    const { review_name, release_date, box_office_gross, lead_actor, director } =
+    const { name, score, review, movies_id } =
       newReviewData;
     const query =
-      "INSERT INTO reviews (review_name, release_date, box_office_gross, lead_actor, director) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+      "INSERT INTO reviews (name, score, review, movies_id) VALUES ($1, $2, $3, $4) RETURNING *";
     const values = [
-      review_name,
-      release_date,
-      box_office_gross,
-      lead_actor,
-      director,
+      name,
+      score,
+      review,
+      movies_id,
     ];
     const insertedReview = await pool.query(query, values);
     return insertedReview.rows[0];
@@ -66,26 +65,25 @@ export async function insertReview(newReviewData) {
   // error handle
 export async function modifyReviewByID(id, updates) {
   try {
-    const { review_name, release_date, box_office_gross, lead_actor, director } =
+    const { name, score, review, movies_id } =
       updates;
+    // This would require all properties given regardless if it changes
     const query = `UPDATE reviews SET
-    review_name=$2,
-    release_date=$3,
-    box_office_gross=$4,
-    lead_actor=$5,
-    director=$6
+    name=$2,
+    score=$3,
+    review=$4,
+    movies_id=$5
     WHERE id = $1
     RETURNING *`;
     const values = [
       id,
-      review_name,
-      release_date,
-      box_office_gross,
-      lead_actor,
-      director,
+      name,
+      score,
+      review,
+      movies_id,
     ];
-    const review = await pool.query(query, values);
-    return review.rows[0];
+    const modifiedReview = await pool.query(query, values);
+    return modifiedReview.rows[0];
   } catch (error) {
     console.error(`Failed to fetch review with id ${id}:`, error.message);
     throw new Error(`No review found with id: ${id}`);

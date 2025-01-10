@@ -37,25 +37,23 @@ export async function getReviewByID(req, res) {
 // Insert new review
 export async function createReview(req, res) {
   try {
-    const { review_name, release_date, box_office_gross, lead_actor, director } =
+    const { name, score, review, movies_id } =
       req.body;
     if (
-      !review_name ||
-      !release_date ||
-      !box_office_gross ||
-      !lead_actor ||
-      !director
+      !name ||
+      !score ||
+      !review ||
+      !movies_id
     ) {
       return res
         .status(400)
         .json({ status: "fail", message: "Missing required fields" });
     }
     const newReviewData = {
-      review_name,
-      release_date,
-      box_office_gross,
-      lead_actor,
-      director,
+      name,
+      score,
+      review,
+      movies_id,
     };
     const newReview = await insertReview(newReviewData);
     console.log("New review created:", newReview);
