@@ -1,7 +1,7 @@
 {
   "name": "week-5-hackathon-room-9-dsz",
   "version": "1.0.0",
-  "description": "Feel free to delete this and start from scratch.",
+  "description": "Movies and Reviews RESTful API fetching from a PostgreSQL server.",
   "main": "index.js",
   "type": "module",
   "scripts": {
