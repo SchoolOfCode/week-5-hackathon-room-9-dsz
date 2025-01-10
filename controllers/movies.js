@@ -4,7 +4,6 @@ import {
   insertMovie,
   modifyMovieByID,
   removeMovieById,
-  // removeMovieById,
 } from "../models/movies.js";
 
 // Get all movies
@@ -85,13 +84,14 @@ export async function updateMovieByID(req, res) {
     throw new Error(`No movie found with ID: ${id}`);
   }
 }
-// delete movie
-// decalare function and try catch block
-// extract is from req.params
-// call with appropraite function and id
-// check if functionr etunr obj and error handle
-// successful response
-// catch error
+
+// Delete movie
+  // decalare function and try catch block
+  // extract is from req.params
+  // call with appropraite function and id
+  // check if functionr etunr obj and error handle
+  // successful response
+  // catch error
 export async function deleteMovieByID(req, res) {
   try {
     const id = req.params.id;
