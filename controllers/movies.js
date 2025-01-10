@@ -1,7 +1,7 @@
 import {
   fetchAllMovies,
   fetchMovieByID,
-  // insertMovie,
+  insertMovie,
   modifyMovieByID,
   // removeMovieById,
 } from "../models/movies.js";
@@ -34,6 +34,44 @@ export async function getMovieByID(req, res) {
 }
 
 // Create movie
+export async function createMovie(req, res) {
+  try {
+    const { movie_name, release_date, box_office_gross, lead_actor, director } =
+      req.body;
+    if (
+      !movie_name ||
+      !release_date ||
+      !box_office_gross ||
+      !lead_actor ||
+      !director
+    ) {
+      return res
+        .status(400)
+        .json({ status: "fail", message: "Missing required fields" });
+    }
+    const newMovie = await insertMovie(
+      movie_name,
+      release_date,
+      box_office_gross,
+      lead_actor,
+      director
+    );
+    console.log("New movie created:", newMovie);
+
+    res.status(201).json({ status: "success", data: newMovie });
+  } catch (error) {
+    res.status(500).json({ status: "error", message: error.message });
+    // throw new Error(`Couldn't add movie to the database!`);
+  }
+}
+
+const test = await createMovie(
+  "Grave of the Fireflies",
+  "1988-04-16",
+  "516000",
+  "Tsutomu Tatsumi",
+  "Isao Takahata"
+);
 
 // Update movie
 export async function updateMovieByID(req, res) {

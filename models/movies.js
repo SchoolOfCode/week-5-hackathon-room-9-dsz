@@ -1,7 +1,6 @@
 import { pool } from "../db/index.js";
 
 // fetch all data
-
 export async function fetchAllMovies() {
   try {
     const query = "SELECT * FROM movies";
@@ -13,12 +12,11 @@ export async function fetchAllMovies() {
 }
 
 // fetch data by ID
-// try catch
-// write query
-// call pool.query with query parameter
-// return query
-// error handle
-
+  // try catch
+  // write query
+  // call pool.query with query parameter
+  // return query
+  // error handle
 export async function fetchMovieByID(id) {
   try {
     const query = "SELECT * FROM movies WHERE id=$1";
@@ -32,11 +30,23 @@ export async function fetchMovieByID(id) {
 }
 
 // create a new movie and send to database
-// try catch
-// query = send movie in SQL AKA INSERT
-// call pool.query with query parameter
-// return query
-// error handle
+  // try catch
+  // query = send movie in SQL AKA INSERT
+  // call pool.query with query parameter
+  // return query
+  // error handle
+export async function insertMovie(
+  movie_name,
+  release_date,
+  box_office_gross,
+  lead_actor,
+  director
+) {
+  try {
+    const query =
+      "INSERT INTO movies (movie_name, release_date, box_office_gross, lead_actor, director) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+    const values = [
+
 // export async function createNewMovie() {
 //   try {
 //     const query =
@@ -57,13 +67,13 @@ export async function fetchMovieByID(id) {
 // }
 
 // update a movie by ID
-// try catch
-// get id
-// get body with new values
-// query = UPDATE elements
-// call pool.query with query parameters
-// return updated movie details
-// error handle
+  // try catch
+  // get id
+  // get body with new values
+  // query = UPDATE elements
+  // call pool.query with query parameters
+  // return updated movie details
+  // error handle
 export async function modifyMovieByID(id, updates) {
   try {
     const {
@@ -81,7 +91,13 @@ export async function modifyMovieByID(id, updates) {
     director=$6
     WHERE id = $1
     RETURNING *`;
-    const values = [id, movie_name, release_date, box_office_gross, lead_actor, director];
+    const values = [id,
+      movie_name,
+      release_date,
+      box_office_gross,
+      lead_actor,
+      director
+    ];
     const movie = await pool.query(query, values);
     return movie.rows[0];
   } catch (error) {
