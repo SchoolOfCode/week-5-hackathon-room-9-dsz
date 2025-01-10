@@ -7,7 +7,7 @@ import moviesRouter from "./routes/movies.js";
 import reviewsRouter from "./routes/reviews.js";
 
 // Testing new style environment variable call
-console.log(`port we're looking for: ${process.env.PORT}`);
+console.log(`Port we're looking for: ${process.env.PORT}`);
 
 // Initialize the express app
 const app = express();
@@ -21,5 +21,8 @@ app.use(express.json());
 // Use sub-routers
 app.use("/movies", moviesRouter);
 app.use("/reviews", reviewsRouter);
+app.use("/", function (req, res) {
+    res.send('Welcome, please use path as "./movies/" or "./reviews/" for accessing data!')
+});
 
 export default app;
