@@ -12,11 +12,11 @@ export async function fetchAllMovies() {
 }
 
 // fetch data by ID
-  // try catch
-  // write query
-  // call pool.query with query parameter
-  // return query
-  // error handle
+// try catch
+// write query
+// call pool.query with query parameter
+// return query
+// error handle
 export async function fetchMovieByID(id) {
   try {
     const query = "SELECT * FROM movies WHERE id=$1";
@@ -30,59 +30,45 @@ export async function fetchMovieByID(id) {
 }
 
 // create a new movie and send to database
-  // try catch
-  // query = send movie in SQL AKA INSERT
-  // call pool.query with query parameter
-  // return query
-  // error handle
-export async function insertMovie(
-  movie_name,
-  release_date,
-  box_office_gross,
-  lead_actor,
-  director
-) {
+// try catch
+// query = send movie in SQL AKA INSERT
+// call pool.query with query parameter
+// return query
+// error handle
+
+export async function insertMovie(newMovieData) {
   try {
+    const { movie_name, release_date, box_office_gross, lead_actor, director } =
+      newMovieData;
     const query =
       "INSERT INTO movies (movie_name, release_date, box_office_gross, lead_actor, director) VALUES ($1, $2, $3, $4, $5) RETURNING *";
     const values = [
-
-// export async function createNewMovie() {
-//   try {
-//     const query =
-//       "INSERT INTO movies (id, movie_name, release_date, box_office_gross, lead_actor, director) VALUES ($1, $2, $3, $4, $5) RETURNING *";
-//     const values = [
-//       movie_name,
-//       release_date,
-//       box_office_gross,
-//       lead_actor,
-//       director,
-//     ];
-//     const createdMovie = pool.query(query, values);
-//     return createdMovie.rows;
-//   } catch (error) {
-//     console.error(`Failed to create new movie ${newMovie}:`, error.message);
-//     throw new Error(`No movie found with id: ${newMovie}`);
-//   }
-// }
-
-// update a movie by ID
-  // try catch
-  // get id
-  // get body with new values
-  // query = UPDATE elements
-  // call pool.query with query parameters
-  // return updated movie details
-  // error handle
-export async function modifyMovieByID(id, updates) {
-  try {
-    const {
       movie_name,
       release_date,
       box_office_gross,
       lead_actor,
-      director
-    } = updates;
+      director,
+    ];
+    const insertedMovie = await pool.query(query, values);
+    return insertedMovie.rows;
+  } catch (error) {
+    console.error(`Failed to create new movie ${newMovie}:`, error.message);
+    throw new Error(`No movie found with id: ${newMovie}`);
+  }
+}
+
+// update a movie by ID
+// try catch
+// get id
+// get body with new values
+// query = UPDATE elements
+// call pool.query with query parameters
+// return updated movie details
+// error handle
+export async function modifyMovieByID(id, updates) {
+  try {
+    const { movie_name, release_date, box_office_gross, lead_actor, director } =
+      updates;
     const query = `UPDATE movies SET
     movie_name=$2,
     release_date=$3,
@@ -91,12 +77,13 @@ export async function modifyMovieByID(id, updates) {
     director=$6
     WHERE id = $1
     RETURNING *`;
-    const values = [id,
+    const values = [
+      id,
       movie_name,
       release_date,
       box_office_gross,
       lead_actor,
-      director
+      director,
     ];
     const movie = await pool.query(query, values);
     return movie.rows[0];
