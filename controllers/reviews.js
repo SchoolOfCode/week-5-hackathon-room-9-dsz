@@ -98,7 +98,7 @@ export async function deleteReviewByID(req, res) {
     if (!result) {
       res.status(404).json({ status: "fail", message: "Review not found" });
     }
-    res.status(200).json({ status: "success", data: result });
+    res.status(204).json({ status: "success", data: result });
   } catch (error) {
     console.error(
       `Failed to delete review with ID ${req.params.id}:`,
