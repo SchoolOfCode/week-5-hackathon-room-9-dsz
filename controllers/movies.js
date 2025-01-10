@@ -2,7 +2,7 @@ import {
   fetchAllMovies,
   fetchMovieByID,
   // insertMovie,
-  // modifyMovieById,
+  modifyMovieByID,
   // removeMovieById,
 } from "../models/movies.js";
 
@@ -34,3 +34,20 @@ export async function getMovieByID(req, res) {
 }
 
 // Create movie
+
+// Update movie
+export async function updateMovieByID(req, res) {
+  try {
+    const { id } = req.params;
+    const movie = await modifyMovieByID(id, req.body);
+    if (!movie) {
+      return res
+        .status(404)
+        .json({ status: "fail", message: "Movie not found" });
+    }
+    res.status(200).json({ status: "success", data: movie });
+  } catch (error) {
+    res.status(500).json({ status: "error", message: error.message });
+    throw new Error(`No movie found with ID: ${id}`);
+  }
+}
