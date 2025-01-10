@@ -1,6 +1,6 @@
 import { pool } from "../db/index.js";
 
-// fetch all data
+// Fetch all data
 export async function fetchAllMovies() {
   try {
     const query = "SELECT * FROM movies";
@@ -11,12 +11,12 @@ export async function fetchAllMovies() {
   }
 }
 
-// fetch data by ID
-// try catch
-// write query
-// call pool.query with query parameter
-// return query
-// error handle
+// Fetch data by ID
+  // try catch
+  // write query
+  // call pool.query with query parameter
+  // return query
+  // error handle
 export async function fetchMovieByID(id) {
   try {
     const query = "SELECT * FROM movies WHERE id=$1";
@@ -29,13 +29,12 @@ export async function fetchMovieByID(id) {
   }
 }
 
-// create a new movie and send to database
-// try catch
-// query = send movie in SQL AKA INSERT
-// call pool.query with query parameter
-// return query
-// error handle
-
+// Create a new movie and send to database
+  // try catch
+  // query = send movie in SQL AKA INSERT
+  // call pool.query with query parameter
+  // return query
+  // error handle
 export async function insertMovie(newMovieData) {
   try {
     const { movie_name, release_date, box_office_gross, lead_actor, director } =
@@ -50,21 +49,21 @@ export async function insertMovie(newMovieData) {
       director,
     ];
     const insertedMovie = await pool.query(query, values);
-    return insertedMovie.rows;
+    return insertedMovie.rows[0];
   } catch (error) {
     console.error(`Failed to create new movie ${newMovie}:`, error.message);
     throw new Error(`No movie found with id: ${newMovie}`);
   }
 }
 
-// update a movie by ID
-// try catch
-// get id
-// get body with new values
-// query = UPDATE elements
-// call pool.query with query parameters
-// return updated movie details
-// error handle
+// Update a movie by ID
+  // try catch
+  // get id
+  // get body with new values
+  // query = UPDATE elements
+  // call pool.query with query parameters
+  // return updated movie details
+  // error handle
 export async function modifyMovieByID(id, updates) {
   try {
     const { movie_name, release_date, box_office_gross, lead_actor, director } =
@@ -94,12 +93,12 @@ export async function modifyMovieByID(id, updates) {
 }
 
 // Delete movie by ID
-// try catch
-// query = DELETE SQL statement
-// get id and save to values
-// call pool.query with query parameters
-// return delted valued to verify
-// error handle
+  // try catch
+  // query = DELETE SQL statement
+  // get id and save to values
+  // call pool.query with query parameters
+  // return delted valued to verify
+  // error handle
 export async function removeMovieById(id) {
   try {
     const query = "DELETE FROM movies WHERE id=$1 RETURNING *";
