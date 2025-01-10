@@ -3,6 +3,7 @@ import {
   fetchMovieByID,
   insertMovie,
   modifyMovieByID,
+  removeMovieById,
   // removeMovieById,
 } from "../models/movies.js";
 
@@ -82,5 +83,30 @@ export async function updateMovieByID(req, res) {
   } catch (error) {
     res.status(500).json({ status: "error", message: error.message });
     throw new Error(`No movie found with ID: ${id}`);
+  }
+}
+// delete movie
+// decalare function and try catch block
+// extract is from req.params
+// call with appropraite function and id
+// check if functionr etunr obj and error handle
+// successful response
+// catch error
+export async function deleteMovieByID(req, res) {
+  try {
+    const id = req.params.id;
+    const result = await removeMovieById(id);
+    if (!result) {
+      res.status(404).json({ status: "fail", message: "Movie not found" });
+    }
+    res.status(200).json({ status: "success", data: result });
+  } catch (error) {
+    console.error(
+      `Failed to delete movie with ID ${req.params.id}:`,
+      error.message
+    );
+    return res
+      .status(500)
+      .json({ status: "error", message: `ERROR: ${error.message}` });
   }
 }

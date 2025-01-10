@@ -92,3 +92,28 @@ export async function modifyMovieByID(id, updates) {
     throw new Error(`No movie found with id: ${id}`);
   }
 }
+
+// Delete movie by ID
+// try catch
+// query = DELETE SQL statement
+// get id and save to values
+// call pool.query with query parameters
+// return delted valued to verify
+// error handle
+export async function removeMovieById(id) {
+  try {
+    const query = "DELETE FROM movies WHERE id=$1 RETURNING *";
+    const values = [id];
+    const deletedMovie = await pool.query(query, values);
+    if (deletedMovie.rowCount === 0) {
+      // If no rows were deleted, throw a custom error
+      throw new Error(`No movie found with id: ${id}`);
+    }
+
+    console.log(`Movie with id ${id} deleted successfully.`);
+    return deletedMovie.rows[0];
+  } catch (error) {
+    console.error(`Failed to delete movie with id ${id}:`, error.message);
+    throw new Error(`No movie found with id: ${id}`);
+  }
+}
